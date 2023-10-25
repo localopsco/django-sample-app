@@ -1,7 +1,7 @@
 ### To push docker image
 
 ```shell
-docker build -t todo-web .
+docker buildx build --platform linux/amd64 -t todo-web .
 ```
 
 ```shell
