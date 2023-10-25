@@ -3,18 +3,18 @@ kind: StatefulSet
 metadata:
   name: postgres-statefulset
 spec:
-  serviceName: postgres-service
+  serviceName: todo-postgres-service
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-template
+      app: todo-postgres-template
   template:
     metadata:
       labels:
-        app: postgres-template
+        app: todo-postgres-template
     spec:
       containers:
-        - name: postgres-container
+        - name: todo-postgres-container
           image: postgres:14.8-alpine3.18
           env:
             - name: POSTGRES_DB
@@ -28,7 +28,7 @@ spec:
           ports:
             - containerPort: 5432
           volumeMounts:
-            - name: postgres-storage
+            - name: todo-postgres-storage
               mountPath: /var/lib/postgresql/data
           resources:
             requests:
@@ -39,7 +39,7 @@ spec:
               cpu: "500m"
   volumeClaimTemplates:
     - metadata:
-        name: postgres-storage
+        name: todo-postgres-storage
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
@@ -51,20 +51,20 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-statefulset
+  name: todo-redis-statefulset
 spec:
-  serviceName: redis-service
+  serviceName: todo-redis-service
   replicas: 1
   selector:
     matchLabels:
-      app: redis-template
+      app: todo-redis-template
   template:
     metadata:
       labels:
-        app: redis-template
+        app: todo-redis-template
     spec:
       containers:
-        - name: redis-container
+        - name: todo-redis-container
           image: redis:alpine
           ports:
             - containerPort: 6379
@@ -115,7 +115,7 @@ spec:
         image: postgres:14.8-alpine3.18
         env:
             - name: POSTGRES_HOST
-              value: postgres-service
+              value: todo-postgres-service
             - name: POSTGRES_PORT
               value: "5432"
         command: ['sh', '-c',

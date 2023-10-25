@@ -15,10 +15,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 db:
-  host: postgres-service
+  host: todo-postgres-service
 
 redis:
-  host: redis-service
+  host: todo-redis-service
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -44,7 +44,8 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8000
+  targetPort: 8000
 
 ingress:
   enabled: false

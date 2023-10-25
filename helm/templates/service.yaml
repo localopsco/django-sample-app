@@ -8,18 +8,18 @@ spec:
     app: todo-web-template
   ports:
     - protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: todo-postgres-service
 spec:
   selector:
-    app: postgres-template
+    app: todo-postgres-template
   ports:
     - protocol: TCP
       port: 5432
@@ -29,10 +29,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-service
+  name: todo-redis-service
 spec:
   selector:
-    app: redis-template
+    app: todo-redis-template
   ports:
     - protocol: TCP
       port: 6379
