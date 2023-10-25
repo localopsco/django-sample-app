@@ -1,0 +1,30 @@
+version: '3'
+
+volumes:
+  pg_data_todo:
+
+services:
+  web:
+    build: .
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:14.8-alpine3.18
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: todo_user
+      POSTGRES_PASSWORD: todo_pass
+    volumes:
+      - pg_data_todo:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  redis:
+    image: redis:6

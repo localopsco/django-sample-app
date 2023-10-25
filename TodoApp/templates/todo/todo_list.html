@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <ul>
+        {% for todo in todos %}
+            <li>
+              <a href="{% url 'todo_detail' todo.id %}">
+                {{ todo.title }}
+                {% if todo.completed %}
+                    <span style="color: green;">(Completed)</span>
+                {% else %}
+                    <span style="color: red;">(Not Completed)</span>
+                {% endif %}
+              </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'todo_create' %}">Add a new todo</a>
+</body>
+</html>

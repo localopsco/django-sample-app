@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo Detail</title>
+</head>
+<body>
+    <h1>Todo Detail</h1>
+
+    <p><strong>Title:</strong> {{ todo.title }}</p>
+    <p><strong>Status:</strong>
+        {% if todo.completed %}
+            <span style="color: green;">Completed</span>
+        {% else %}
+            <span style="color: red;">Not Completed</span>
+        {% endif %}
+    </p>
+
+    <p>
+      <form method="post" action="{% url 'todo_complete' todo.id %}">
+        {% csrf_token %}
+        <button type="submit">Mark as completed</button>
+      </form>
+    </p>
+    <p><a href="{% url 'todo_delete' todo.id %}">Delete</a></p>
+    <p><a href="{% url 'todo_list' %}">Back to Todo List</a></p>
+</body>
+</html>

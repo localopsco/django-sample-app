@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-statefulset
+spec:
+  serviceName: postgres-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-template
+  template:
+    metadata:
+      labels:
+        app: postgres-template
+    spec:
+      containers:
+        - name: postgres-container
+          image: postgres:14.8-alpine3.18
+          env:
+            - name: POSTGRES_DB
+              value: todo_db
+            - name: POSTGRES_USER
+              value: todo_user
+            - name: POSTGRES_PASSWORD
+              value: todo_pass
+            - name: PGDATA
+              value: /var/lib/postgresql/data/todo/
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 100Mi
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-statefulset
+spec:
+  serviceName: redis-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-template
+  template:
+    metadata:
+      labels:
+        app: redis-template
+    spec:
+      containers:
+        - name: redis-container
+          image: redis:alpine
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: todo-web-template
+  template:
+    metadata:
+      labels:
+        app: todo-web-template
+    spec:
+      containers:
+        - name: todo-web-container
+          image: sundarasann/todoproject-web
+          env:
+            - name: DB_HOST
+              value: "{{ .Values.db.host }}"
+            - name: REDIS_HOST
+              value: "{{ .Values.redis.host }}"
+          ports:
+            - name: web
+              containerPort: 8000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      # imagePullSecrets:
+      #     - name: regcred
+      initContainers:
+      - name: check-db-ready
+        image: postgres:14.8-alpine3.18
+        env:
+            - name: POSTGRES_HOST
+              value: postgres-service
+            - name: POSTGRES_PORT
+              value: "5432"
+        command: ['sh', '-c',
+          'echo Checking if postgres is up; until pg_isready -h $POSTGRES_HOST -p $POSTGRES_PORT;
+          do echo Waiting for postgres database to be up...; sleep 2; done; echo Postgres is up!']
+
+---

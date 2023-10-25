@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web-service
+spec:
+  selector:
+    app: todo-web-template
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  selector:
+    app: postgres-template
+  ports:
+    - protocol: TCP
+      port: 5432
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+spec:
+  selector:
+    app: redis-template
+  ports:
+    - protocol: TCP
+      port: 6379
+
+---

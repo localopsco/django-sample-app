@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+__pycache__/*
+*.pyc
+*.pyo
+
+# Local development settings
+*.env
+
+# Database
+*.sqlite3
+*.db
+
+# Static files
+staticfiles/
+
+# Media files
+media/
+
+# Secret keys and sensitive information
+.env
+.env.local
+.env.production
+*.key
+*.crt
+*.pem
+
+# IDE-specific files
+.idea/
+.vscode/
+
+# Log files
+*.log
+
+# Compiled Python files
+*.pyc
+
+# Package files
+*.egg-info/
+dist/
+build/
+eggs/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Coverage reports
+htmlcov/
+
+# Translations
+locale/
