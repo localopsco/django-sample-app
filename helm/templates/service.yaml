@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: todo-web-service
 spec:
-  type: LoadBalancer
+  type: {{ .Values.service.type }}
   selector:
     app: todo-web-template
   ports:
