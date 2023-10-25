@@ -94,7 +94,7 @@ spec:
     spec:
       containers:
         - name: todo-web-container
-          image: sundarasann/todoproject-web
+          image: public.ecr.aws/x1e8o8e1/django-sample-app:latest
           env:
             - name: DB_HOST
               value: "{{ .Values.db.host }}"
@@ -110,8 +110,6 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-      # imagePullSecrets:
-      #     - name: regcred
       initContainers:
       - name: check-db-ready
         image: postgres:14.8-alpine3.18

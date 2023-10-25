@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: todo-web-service
 spec:
+  type: LoadBalancer
   selector:
     app: todo-web-template
   ports:

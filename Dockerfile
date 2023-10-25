@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9
+FROM python:3.9-alpine
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -14,6 +14,9 @@ COPY requirements.txt /app/
 # Use the custom entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Install the project dependencies
