@@ -58,3 +58,5 @@ htmlcov/
 
 # Translations
 locale/
+
+.tmp
