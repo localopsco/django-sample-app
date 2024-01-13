@@ -35,5 +35,5 @@ aws ecr-public get-login-password --region us-east-1 | docker login --username A
 ```
 
 ```shell
-helm push helm/.tmp/django-sample-app-helm-0.1.0.tgz oci://public.ecr.aws/x1e8o8e1/
+helm push helm/.tmp/django-sample-app-helm-<version>.tgz oci://public.ecr.aws/x1e8o8e1/
 ```
