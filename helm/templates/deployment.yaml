@@ -94,7 +94,7 @@ spec:
     spec:
       containers:
         - name: todo-web-container
-          image: public.ecr.aws/x1e8o8e1/django-sample-app:latest
+          image: public.ecr.aws/x1e8o8e1/django-sample-app:{{ .Chart.AppVersion }}
           env:
             - name: DB_HOST
               value: "{{ .Values.db.host }}"

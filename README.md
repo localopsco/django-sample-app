@@ -1,11 +1,12 @@
 ### To push docker image
 
 ```shell
-docker buildx build --platform linux/amd64 -t todo-web .
+docker buildx build --platform linux/amd64 -t todo-web:latest -t todo-web:<version> .
 ```
 
 ```shell
 docker tag todo-web:latest public.ecr.aws/x1e8o8e1/django-sample-app:latest
+docker tag todo-web:<version> public.ecr.aws/x1e8o8e1/django-sample-app:<version>
 ```
 
 ```shell
@@ -14,6 +15,7 @@ aws ecr-public get-login-password --region us-east-1 | docker login --username A
 
 ```shell
 docker push public.ecr.aws/x1e8o8e1/django-sample-app:latest
+docker push public.ecr.aws/x1e8o8e1/django-sample-app:<version>
 ```
 
 ### To helm install
