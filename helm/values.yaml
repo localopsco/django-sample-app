@@ -88,3 +88,7 @@ tolerations: []
 
 affinity: {}
 
+buckets:
+  bucket1: localops-django-sample-app-bucket-1
+  bucket2: localops-django-sample-app-bucket-2
+

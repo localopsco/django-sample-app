@@ -1,7 +1,7 @@
 apiVersion: s3.aws.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  name: localops-sample-bucket-{{ .Release.Name }}-1
+  name: {{ .Values.buckets.bucket1 }}
 spec:
   forProvider:
     region: ap-south-1
@@ -13,7 +13,7 @@ spec:
 apiVersion: s3.aws.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  name: localops-sample-bucket-{{ .Release.Name }}-2
+  name: {{ .Values.buckets.bucket2 }}
 spec:
   forProvider:
     region: ap-south-1
