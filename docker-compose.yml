@@ -9,6 +9,8 @@ services:
     environment:
       DB_HOST: db
       REDIS_HOST: redis
+      AWS_ACCESS_KEY_ID: XYZ
+      AWS_SECRET_ACCESS_KEY: XYZ
     ports:
       - "8000:8000"
     depends_on:
