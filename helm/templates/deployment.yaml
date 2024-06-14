@@ -100,6 +100,17 @@ spec:
               value: "{{ .Values.db.host }}"
             - name: REDIS_HOST
               value: "{{ .Values.redis.host }}"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cloud-provider-secret
+                  key: aws_access_key_id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cloud-provider-secret
+                  key: aws_secret_access_key
+                
           ports:
             - name: web
               containerPort: 8000
